@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 - Mój Dokument</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered: ', registration);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <div id="password-screen" class="screen active">
+        <div class="password-container">
+            <h1>Zabezpiecz dokument</h1>
+            <p id="password-message">Ustaw swoje hasło, aby chronić dane.</p>
+            <input type="password" id="password-input" placeholder="Wpisz hasło" autocomplete="off">
+            <button id="password-action-button">Utwórz hasło</button>
+            <p class="error-text" id="error-text"></p>
+        </div>
+    </div>
+
+    <div id="main-menu-screen" class="screen hidden">
+        <header class="main-header">
+            <div class="app-logo">
+                <img src="flag-icon.png" alt="PL" class="flag-icon">
+                <span class="app-name">Dokumenty</span>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" onclick="logout()">Wyloguj</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="documents-section">
+                <h2>Dokumenty</h2>
+                <div class="documents-grid">
+                    <div class="document-card-main" onclick="showDocumentDetails()">
+                        <div class="card-icon">👤</div>
+                        <p class="card-title">mDowód</p>
+                        <span class="forward-arrow">></span>
+                    </div>
+                    <div class="document-card-main empty-card">
+                        <p class="card-title">Prawo Jazdy</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <div class="section-header">
+                    <h2>Usługi</h2>
+                    <button class="services-all-btn">Wszystkie</button>
+                </div>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-icon">👮</div>
+                        <p>Punkty karne</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🚗</div>
+                        <p>Historia pojazdu</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🌲</div>
+                        <p>Naruszenie środowiskowe</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">💨</div>
+                        <p>Jakość powietrza</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">🚂</div>
+                        <p>Bilkom</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">❤️</div>
+                        <p>eRecepta</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="document-screen" class="screen hidden">
+        <header class="document-header">
+            <span class="back-link" onclick="showMainMenu()">&#x2190; Wróć</span>
+            <h1>mDowód</h1>
+        </header>
+        
+        <div class="document-card-details">
+            <div class="data-time">
+                Czas: <span class="current-time"></span> <span class="current-date"></span>
+            </div>
+            <div class="card-content-details">
+                <img src="avatar.png" alt="Zdjęcie" class="profile-photo"> 
+                <div class="data-block">
+                    <p class="data-label">Imię (imiona)</p>
+                    <p class="data-value main-data">MARTA</p>
+                    
+                    <p class="data-label">Nazwisko</p>
+                    <p class="data-value main-data">KOWALSKA</p>
+
+                    <p class="data-label">Obywatelstwo</p>
+                    <p class="data-value">POLSKIE</p>
+
+                    <p class="data-label">Data urodzenia</p>
+                    <p class="data-value">14.07.1991</p>
+
+                    <p class="data-label">Numer PESEL</p>
+                    <p class="data-value">91071427765</p>
+                </div>
+            </div>
+            <div class="validity-status">
+                <span class="check-icon">&#x2714;</span> Dokument ważny
+            </div>
+        </div>
+
+        <div class="document-footer">
+            <div class="footer-item">
+                <span class="footer-icon">🔒</span> Potwierdź swoje dane
+            </div>
+            <div class="footer-item">
+                <span class="footer-icon">📄</span> Dane dowodu osobistego
+            </div>
+            <div class="footer-item">
+                <span class="footer-icon">🛡️</span> Zastrzeż PESEL
+            </div>
+            <div class="footer-item">
+                <span class="footer-icon">...</span> Pozostałe skróty
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
